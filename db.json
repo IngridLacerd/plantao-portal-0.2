@@ -1,0 +1,90 @@
+{
+  "users": [
+    {
+      "id": "5472215e-89e8-42ba-8c96-8886aae3d5c9",
+      "name": "Maria",
+      "email": "maria@empresa.com.br",
+      "password": "$2a$10$vDOxWKpHLcFsVUCOvYnJ0eY4fpXtgN8bKWSktJYprfN4d5NhRCCE6",
+      "role": "",
+      "sector": "",
+      "func": "",
+      "registration": "",
+      "entryDate": "",
+      "createdAt": "2026-06-30T12:27:43.493Z"
+    },
+    {
+      "id": "6f916aca-5306-42ab-85f1-87f1ccbb4458",
+      "name": "Ingrid lacerda",
+      "email": "ingrid@empresa.com.br",
+      "password": "$2a$10$KGDR6HFsa1W8HpTdpXwsOehHv08CyowKlgpK9gW/12aw2486RGJHe",
+      "role": "",
+      "sector": "",
+      "func": "",
+      "registration": "",
+      "entryDate": "",
+      "createdAt": "2026-06-30T12:34:22.983Z"
+    },
+    {
+      "id": "f98652e6-7259-460a-94bf-f9fcf24cb0fe",
+      "name": "fulana",
+      "email": "fulana@empresa.com",
+      "password": "$2a$10$dsdfmCXMGL0qj7.Yh0Wd2ertJvt8/BqwhK0I3jqn84.mu/J.Mc5xe",
+      "role": "",
+      "sector": "",
+      "func": "",
+      "registration": "",
+      "entryDate": "",
+      "createdAt": "2026-06-30T13:36:10.449Z"
+    }
+  ],
+  "sessions": [
+    {
+      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZmOTE2YWNhLTUzMDYtNDJhYi04NWYxLTg3ZjFjY2JiNDQ1OCIsImlhdCI6MTc4Mjg0NzgyNSwiZXhwIjoxNzgzNDUyNjI1fQ.qSCM2Te6yr-UdBkbv1sJZ-dPOl9mlvmheOpk2O5ak_4",
+      "userId": "6f916aca-5306-42ab-85f1-87f1ccbb4458",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+      "createdAt": "2026-06-30T19:30:25.461Z"
+    }
+  ],
+  "reports": [
+    {
+      "id": 1782822900947,
+      "title": "oiiiiiiiiiii",
+      "body": "relatório mensal",
+      "sender": "Ingrid lacerda",
+      "senderId": "6f916aca-5306-42ab-85f1-87f1ccbb4458",
+      "recipients": [
+        "maria@empresa.com.br"
+      ],
+      "status": "Recebido",
+      "readBy": [
+        "maria@empresa.com.br"
+      ],
+      "date": "2026-06-30T12:35:00.947Z",
+      "file": {
+        "url": "/uploads/1782822900861-download.docx",
+        "originalname": "download.docx"
+      }
+    },
+    {
+      "id": 1782826606621,
+      "title": "aleatório",
+      "body": "Relatório aleatório",
+      "sender": "fulana",
+      "senderId": "f98652e6-7259-460a-94bf-f9fcf24cb0fe",
+      "recipients": [
+        "maria@empresa.com.br",
+        "ingrid@empresa.com.br"
+      ],
+      "status": "Recebido",
+      "readBy": [
+        "ingrid@empresa.com.br",
+        "maria@empresa.com.br"
+      ],
+      "date": "2026-06-30T13:36:46.621Z",
+      "file": {
+        "url": "/uploads/1782826606608-1782822900861-download.docx",
+        "originalname": "1782822900861-download.docx"
+      }
+    }
+  ]
+}

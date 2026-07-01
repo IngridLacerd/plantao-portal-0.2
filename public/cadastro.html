@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<script>
+(function() {
+  const saved = localStorage.getItem('pc-theme');
+  const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+  if (saved === 'dark' || (!saved && prefersDark)) {
+    document.documentElement.setAttribute('data-theme', 'dark');
+  }
+})();
+function toggleTheme() {
+  const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+  if (isDark) {
+    document.documentElement.removeAttribute('data-theme');
+    localStorage.setItem('pc-theme', 'light');
+  } else {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    localStorage.setItem('pc-theme', 'dark');
+  }
+}
+</script>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Cadastrar — Portal Plantão Card</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --brand:#fa0000;
+  --brand-dark: #fa0000;
+  --brand-light: rgb(250, 230, 230);
+  --ink: #1A1714;
+  --ink-soft: #4A4542;
+  --ink-muted: #8A837E;
+  --surface: #FDFCFB;
+  --surface-2: #F5F2EF;
+  --border: rgba(26,23,20,0.10);
+  --border-strong: rgba(26,23,20,0.18);
+  --radius: 14px;
+  --radius-sm: 8px;
+  --shadow-lg: 0 8px 32px rgba(26,23,20,0.12), 0 2px 8px rgba(26,23,20,0.06);
+  --danger-bg: #FCEBEB;
+  --danger: #A32D2D;
+}
+html[data-theme="dark"] {
+  --brand: rgb(214, 60, 60);
+  --brand-dark: rgb(180, 40, 40);
+  --brand-light: rgba(214, 60, 60, 0.16);
+  --ink: #F2EFEC;
+  --ink-soft: #C9C4BF;
+  --ink-muted: #8E8782;
+  --surface: #211E1B;
+  --surface-2: #181614;
+  --border: rgba(255,255,255,0.08);
+  --border-strong: rgba(255,255,255,0.14);
+  --shadow-lg: 0 8px 32px rgba(0,0,0,0.4), 0 2px 8px rgba(0,0,0,0.25);
+  --danger-bg: rgba(214, 60, 60, 0.16);
+  --danger: #E08080;
+}
+html, body { transition: background-color .2s ease, color .2s ease; }
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Inter', sans-serif; background: var(--surface-2); color: var(--ink);
+  min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 24px;
+}
+.auth-card { position: relative; width: 100%; max-width: 400px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow-lg); padding: 36px 32px; }
+.logo-wrap { display: flex; align-items: center; gap: 10px; justify-content: center; margin-bottom: 24px; }
+.logo-icon { width: 36px; height: 36px; border-radius: 9px;  border-color: #fa0000;}
+.logo-icon img{
+  height: 36px;
+  width: 36px;
+}
+.logo-text { font-family: 'Inter', sans-serif; font-weight: 700; font-size: 15px; letter-spacing: .02em; }
+.logo-text span { color: var(--brand); }
+h1 { font-family: 'Inter', sans-serif; font-size: 21px; font-weight: 700; text-align: center; margin-bottom: 6px; }
+.subtitle { font-size: 13.5px; color: var(--ink-muted); text-align: center; margin-bottom: 26px; }
+.field { margin-bottom: 16px; }
+.field label { display: block; font-size: 13px; font-weight: 500; color: var(--ink-soft); margin-bottom: 6px; }
+.field input { width: 100%; padding: 11px 14px; border: 1px solid var(--border-strong); border-radius: var(--radius-sm); font-family: 'Inter', sans-serif; font-size: 14px; color: var(--ink); background: var(--surface); outline: none; transition: border-color .15s, box-shadow .15s; }
+.field input:focus { border-color: var(--brand); box-shadow: 0 0 0 3px rgba(136,0,0,.10); }
+.btn-primary { width: 100%; padding: 12px; background: var(--brand); border: none; border-radius: var(--radius-sm); font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 600; color: #fff; cursor: pointer; transition: background .15s; margin-top: 6px; }
+.btn-primary:hover { background: var(--brand-dark); }
+.btn-primary:disabled { opacity: .6; cursor: not-allowed; }
+.alt-link { text-align: center; font-size: 13.5px; color: var(--ink-muted); margin-top: 20px; }
+.alt-link a { color: var(--brand); font-weight: 500; text-decoration: none; }
+.alt-link a:hover { text-decoration: underline; }
+.error-box { background: var(--danger-bg); color: var(--danger); font-size: 13px; padding: 10px 14px; border-radius: var(--radius-sm); margin-bottom: 16px; display: none; }
+.error-box.visible { display: block; }
+
+.theme-toggle {
+  width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--border-strong);
+  background: var(--surface-2); color: var(--ink-soft); cursor: pointer;
+  display: flex; align-items: center; justify-content: center; transition: all .15s;
+  position: absolute; top: 20px; right: 20px;
+}
+.theme-toggle:hover { background: var(--surface); color: var(--ink); }
+.theme-toggle svg { width: 16px; height: 16px; }
+.theme-toggle .icon-sun { display: none; }
+html[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
+html[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
+</style>
+</head>
+<body>
+
+<div class="auth-card">
+<button class="theme-toggle" onclick="toggleTheme()" title="Alternar tema">
+  <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+</button>
+  <div class="logo-wrap">
+    <div class="logo-icon"><img src="./ChatGPT Image 30 de jun. de 2026, 15_04_53.png" alt="Logo Plantão Card"></div>
+    <span class="logo-text">PLANTÃO <span>CARD</span></span>
+  </div>
+  <h1>Criar conta</h1>
+  <p class="subtitle">Crie sua conta para acessar o portal</p>
+
+  <div class="error-box" id="error-box"></div>
+
+  <form id="register-form">
+    <div class="field">
+      <label for="name">Nome completo</label>
+      <input id="name" type="text" placeholder="Seu nome" required/>
+    </div>
+    <div class="field">
+      <label for="email">Email</label>
+      <input id="email" type="email" placeholder="voce@exemplo.com" required/>
+    </div>
+    <div class="field">
+      <label for="password">Senha</label>
+      <input id="password" type="password" placeholder="••••••••" minlength="6" required/>
+    </div>
+    <div class="field">
+      <label for="password2">Confirmar senha</label>
+      <input id="password2" type="password" placeholder="••••••••" minlength="6" required/>
+    </div>
+    <button class="btn-primary" type="submit" id="submit-btn">Criar conta</button>
+  </form>
+
+  <p class="alt-link">Já tem conta? <a href="login.html">Entrar</a></p>
+</div>
+
+<script>
+const API = (function() {
+  if (location.protocol === 'file:' || location.host.includes('5500')) return 'http://localhost:3000';
+  return '';
+})();
+
+// Se já estiver logado, manda direto pro painel
+if (localStorage.getItem('pc-token')) {
+  location.href = 'index.html';
+}
+
+const form = document.getElementById('register-form');
+const errorBox = document.getElementById('error-box');
+const submitBtn = document.getElementById('submit-btn');
+
+function showError(msg) {
+  errorBox.textContent = msg;
+  errorBox.classList.add('visible');
+}
+function hideError() {
+  errorBox.classList.remove('visible');
+}
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  hideError();
+  const name = document.getElementById('name').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const password = document.getElementById('password').value;
+  const password2 = document.getElementById('password2').value;
+
+  if (password !== password2) {
+    showError('As senhas não coincidem.');
+    return;
+  }
+  if (password.length < 6) {
+    showError('A senha deve ter pelo menos 6 caracteres.');
+    return;
+  }
+
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Criando conta…';
+
+  try {
+    const res = await fetch(API + '/api/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, email, password })
+    });
+    const data = await res.json();
+    if (!res.ok) {
+      showError(data.message || 'Não foi possível criar a conta.');
+      return;
+    }
+    localStorage.setItem('pc-token', data.token);
+    location.href = 'index.html';
+  } catch (err) {
+    showError('Não foi possível conectar ao servidor. Verifique se o backend está rodando.');
+  } finally {
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Criar conta';
+  }
+});
+</script>
+
+</body>
+</html>
