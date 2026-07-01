@@ -23,43 +23,24 @@
   ],
   "reports": [
     {
-      "id": 1782822900947,
-      "title": "oiiiiiiiiiii",
-      "body": "relatório mensal",
-      "sender": "Ingrid lacerda",
-      "senderId": "6f916aca-5306-42ab-85f1-87f1ccbb4458",
+      "id": ,
+      "title": "",
+      "body": "",
+      "sender": "",
+      "senderId": "",
       "recipients": [
-        "maria@empresa.com.br"
+        "",
+        ""
       ],
-      "status": "Recebido",
+      "status": "",
       "readBy": [
-        "maria@empresa.com.br"
+        "",
+        "r"
       ],
-      "date": "2026-06-30T12:35:00.947Z",
+      "date": "",
       "file": {
-        "url": "/uploads/1782822900861-download.docx",
-        "originalname": "download.docx"
-      }
-    },
-    {
-      "id": 1782826606621,
-      "title": "aleatório",
-      "body": "Relatório aleatório",
-      "sender": "fulana",
-      "senderId": "f98652e6-7259-460a-94bf-f9fcf24cb0fe",
-      "recipients": [
-        "maria@empresa.com.br",
-        "ingrid@empresa.com.br"
-      ],
-      "status": "Recebido",
-      "readBy": [
-        "ingrid@empresa.com.br",
-        "maria@empresa.com.br"
-      ],
-      "date": "2026-06-30T13:36:46.621Z",
-      "file": {
-        "url": "/uploads/1782826606608-1782822900861-download.docx",
-        "originalname": "1782822900861-download.docx"
+        "",
+        "originalname": ""
       }
     }
   ]
