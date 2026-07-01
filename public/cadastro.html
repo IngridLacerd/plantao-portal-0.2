@@ -101,6 +101,17 @@ h1 { font-family: 'Inter', sans-serif; font-size: 21px; font-weight: 700; text-a
 .theme-toggle .icon-sun { display: none; }
 html[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
 html[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
+
+@media (max-width: 480px) {
+  body { padding: 12px; align-items: flex-start; }
+  .auth-card { padding: 24px 18px; }
+  .theme-toggle { top: 12px; right: 12px; }
+  .logo-wrap { margin-bottom: 18px; }
+  h1 { font-size: 20px; }
+  .subtitle { margin-bottom: 20px; }
+  .field input { padding: 10px 12px; }
+  .btn-primary { padding: 11px 12px; }
+}
 </style>
 </head>
 <body>
