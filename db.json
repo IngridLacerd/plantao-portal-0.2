@@ -1,18 +1,6 @@
 {
   "users": [
     {
-      "id": "5472215e-89e8-42ba-8c96-8886aae3d5c9",
-      "name": "Maria",
-      "email": "maria@empresa.com.br",
-      "password": "$2a$10$vDOxWKpHLcFsVUCOvYnJ0eY4fpXtgN8bKWSktJYprfN4d5NhRCCE6",
-      "role": "",
-      "sector": "",
-      "func": "",
-      "registration": "",
-      "entryDate": "",
-      "createdAt": "2026-06-30T12:27:43.493Z"
-    },
-    {
       "id": "6f916aca-5306-42ab-85f1-87f1ccbb4458",
       "name": "Ingrid lacerda",
       "email": "ingrid@empresa.com.br",
@@ -23,18 +11,6 @@
       "registration": "",
       "entryDate": "",
       "createdAt": "2026-06-30T12:34:22.983Z"
-    },
-    {
-      "id": "f98652e6-7259-460a-94bf-f9fcf24cb0fe",
-      "name": "fulana",
-      "email": "fulana@empresa.com",
-      "password": "$2a$10$dsdfmCXMGL0qj7.Yh0Wd2ertJvt8/BqwhK0I3jqn84.mu/J.Mc5xe",
-      "role": "",
-      "sector": "",
-      "func": "",
-      "registration": "",
-      "entryDate": "",
-      "createdAt": "2026-06-30T13:36:10.449Z"
     }
   ],
   "sessions": [
