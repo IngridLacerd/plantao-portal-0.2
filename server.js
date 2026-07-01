@@ -36,7 +36,7 @@ app.use(cors());
 app.use(express.json());
 
 // Servir os arquivos estáticos (index.html, login.html, cadastro.html)
-const PUBLIC_DIR = path.join(__dirname, '..', 'public');
+const PUBLIC_DIR = path.join(__dirname, 'public');
 app.use(express.static(PUBLIC_DIR));
 
 // Upload de arquivos de relatório
