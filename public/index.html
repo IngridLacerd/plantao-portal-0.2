@@ -316,13 +316,13 @@ function toggleTheme() {
       <div class="card">
         <div class="card-title">
           <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-          Histórico de Relatórios Enviados
+          Histórico de Relatórios Gerados
         </div>
         <div id="sent-reports-list">
           <div class="empty-state">
             <div class="empty-icon"><svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="#8A837E" stroke-width="1.5"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg></div>
             <div class="empty-title">Nenhum relatório ainda</div>
-            <div class="empty-desc">Quando você enviar relatórios, eles aparecerão aqui.</div>
+            <div class="empty-desc">Quando você gerar relatórios, eles aparecerão aqui.</div>
           </div>
         </div>
       </div>
@@ -371,16 +371,16 @@ function toggleTheme() {
   <section class="section" id="reports">
     <div class="page-header">
       <h1>Relatórios</h1>
-      <p>Acompanhe e gerencie seus relatórios de plantão</p>
+      <p>Gere e acompanhe seus relatórios em PDF</p>
       <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap;">
-        <button class="btn-primary" onclick="openReportModal()">Enviar Relatório</button>
+        <button class="btn-primary" onclick="openReportModal()">Gerar Relatório</button>
       </div>
     </div>
     <div class="report-list" id="reports-sent-list">
       <div class="empty-state">
         <div class="empty-icon"><svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="#8A837E" stroke-width="1.5"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg></div>
-        <div class="empty-title">Nenhum relatório enviado</div>
-        <div class="empty-desc">Clique em "Enviar Relatório" para começar.</div>
+        <div class="empty-title">Nenhum relatório gerado</div>
+        <div class="empty-desc">Clique em "Gerar Relatório" para começar.</div>
       </div>
     </div>
   </section>
@@ -445,19 +445,18 @@ function toggleTheme() {
 
 <div class="modal-overlay" id="reportModal" onclick="closeModalOutside(event,'reportModal')">
   <div class="modal" style="max-width:620px;">
-    <div class="modal-header"><div class="modal-title">Enviar Relatório</div><button class="modal-close" onclick="closeModal('reportModal')">×</button></div>
+    <div class="modal-header"><div class="modal-title">Gerar Relatório</div><button class="modal-close" onclick="closeModal('reportModal')">×</button></div>
     <div class="modal-body">
       <div class="field"><label>Título *</label><input id="ri-title" type="text" placeholder="Título do relatório"/></div>
-      <div class="field"><label>Descrição</label><textarea id="ri-body" placeholder="Detalhes do relatório…"></textarea></div>
+      <div class="field"><label>Conteúdo</label><textarea id="ri-body" placeholder="Escreva o conteúdo do relatório…" style="min-height:160px;"></textarea></div>
       <div class="field">
-        <label>Destinatários *</label>
+        <label>Enviar para (opcional)</label>
         <select id="ri-recipients" multiple style="height:100px;"></select>
-        <p style="font-size:12px;color:var(--ink-muted);margin-top:4px;">Segure Ctrl (Windows) ou ⌘ (Mac) para selecionar vários.</p>
+        <p style="font-size:12px;color:var(--ink-muted);margin-top:4px;">Deixe em branco para apenas gerar o PDF. Segure Ctrl (Windows) ou ⌘ (Mac) para selecionar vários.</p>
       </div>
-      <div class="field"><label>Arquivo (opcional)</label><input id="ri-file" type="file"/></div>
       <div class="modal-footer">
         <button class="btn-ghost" onclick="closeModal('reportModal')">Cancelar</button>
-        <button class="btn-primary" onclick="sendReport()">Enviar</button>
+        <button class="btn-primary" onclick="generateReport()">Gerar PDF</button>
       </div>
     </div>
   </div>
@@ -607,14 +606,18 @@ function renderSentReports(list) {
       <div class="report-item">
         <div class="report-info">
           <div class="report-name">${r.title}</div>
-          <div class="report-date">Enviado em ${new Date(r.date || r.created_at).toLocaleDateString('pt-BR')}</div>
+          <div class="report-date">Gerado em ${new Date(r.date || r.created_at).toLocaleDateString('pt-BR')}${r.recipients && r.recipients.length ? ` · Enviado para ${r.recipients.length} pessoa(s)` : ''}</div>
         </div>
-        <span class="report-badge">${r.status || 'Enviado'}</span>
+        <div style="display:flex;align-items:center;gap:8px;">
+          ${r.file ? `<a class="btn-ghost" href="${API}${r.file.url}" target="_blank">Baixar PDF</a>` : ''}
+          ${!r.recipients || !r.recipients.length ? `<button class="btn-ghost" onclick="sendExistingReport(${r.id})">Enviar</button>` : ''}
+          <span class="report-badge">${r.status || 'Gerado'}</span>
+        </div>
       </div>`).join('')
     : `<div class="empty-state">
         <div class="empty-icon"><svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="#8A837E" stroke-width="1.5"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg></div>
-        <div class="empty-title">Nenhum relatório enviado</div>
-        <div class="empty-desc">Clique em "Enviar Relatório" para começar.</div>
+        <div class="empty-title">Nenhum relatório gerado</div>
+        <div class="empty-desc">Clique em "Gerar Relatório" para começar.</div>
       </div>`;
   document.getElementById('reports-sent-list').innerHTML   = html;
   document.getElementById('sent-reports-list').innerHTML = html;
@@ -668,32 +671,63 @@ async function openReportModal() {
   openModal('reportModal');
 }
 
-async function sendReport() {
+async function generateReport() {
   const title      = document.getElementById('ri-title').value.trim();
   const body       = document.getElementById('ri-body').value.trim();
   const recipients = Array.from(document.getElementById('ri-recipients').selectedOptions).map(o => o.value);
-  const fileInput  = document.getElementById('ri-file');
 
-  if (!title)              { alert('Informe o título do relatório');         return; }
-  if (!recipients.length)  { alert('Selecione ao menos um destinatário');    return; }
+  if (!title) { alert('Informe o título do relatório'); return; }
 
-  const form = new FormData();
-  form.append('title',      title);
-  form.append('body',       body);
-  form.append('recipients', JSON.stringify(recipients));
-  if (fileInput.files[0]) form.append('file', fileInput.files[0]);
+  const btn = document.querySelector('#reportModal .btn-primary');
+  btn.disabled = true;
+  btn.textContent = 'Gerando…';
 
-  const res = await fetch(API + '/api/reports/upload', {
+  try {
+    const res = await apiFetch('/api/reports/generate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ title, body, recipients })
+    });
+    if (!res || !res.ok) { const e = await res.json(); alert(e.message || 'Erro ao gerar relatório'); return; }
+    const report = await res.json();
+    closeModal('reportModal');
+    document.getElementById('ri-title').value = '';
+    document.getElementById('ri-body').value  = '';
+    loadSentReports();
+
+    const abrir = confirm(
+      (recipients.length ? 'Relatório gerado e enviado com sucesso!' : 'Relatório gerado com sucesso!') +
+      '\n\nDeseja abrir o PDF agora?'
+    );
+    if (abrir && report.file) window.open(API + report.file.url, '_blank');
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Gerar PDF';
+  }
+}
+
+// Envia um relatório já gerado (da lista de "Meus Relatórios") para colegas
+async function sendExistingReport(id) {
+  const sel = document.createElement('select');
+  const res = await apiFetch('/api/employees');
+  if (!res || !res.ok) { alert('Erro ao carregar funcionários'); return; }
+  const employees = await res.json();
+  if (!employees.length) { alert('Nenhum funcionário disponível para envio.'); return; }
+
+  const nomes = employees.map((e, i) => `${i + 1}. ${e.name} (${e.email})`).join('\n');
+  const escolha = prompt('Digite os números dos destinatários separados por vírgula:\n\n' + nomes);
+  if (!escolha) return;
+  const indices = escolha.split(',').map(s => parseInt(s.trim()) - 1).filter(i => !isNaN(i) && employees[i]);
+  const recipients = indices.map(i => employees[i].email);
+  if (!recipients.length) { alert('Nenhum destinatário válido selecionado.'); return; }
+
+  const sendRes = await apiFetch(`/api/reports/${id}/send`, {
     method: 'POST',
-    headers: { 'Authorization': 'Bearer ' + getToken() },
-    body: form
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ recipients })
   });
-  if (!res.ok) { const e = await res.json(); alert(e.message || 'Erro ao enviar'); return; }
+  if (!sendRes || !sendRes.ok) { const e = await sendRes.json(); alert(e.message || 'Erro ao enviar'); return; }
   alert('Relatório enviado com sucesso!');
-  closeModal('reportModal');
-  document.getElementById('ri-title').value = '';
-  document.getElementById('ri-body').value  = '';
-  document.getElementById('ri-file').value  = '';
   loadSentReports();
 }
 function setupSSE() {
